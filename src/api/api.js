@@ -5,16 +5,16 @@ export const api = axios.create({
 });
 
 export const getContacts = async () => {
-  const { data } = await api.get(`/contacts`);
+  const { data } = await api.get(`/contacts/contacts`);
   return data;
 };
 
 export const addContacts = async contact => {
-  const { data } = await api.post(`/contacts`, contact);
+  const { data } = await api.post(`/contacts/contacts`, contact);
   return data;
 };
 
 export const dellContacts = async id => {
-  const { data } = await api.delete(`/contacts/${id}`);
+  const { data } = await api.delete(`/contacts/contacts/${id}`);
   return data;
 };

@@ -24,10 +24,10 @@ const List = () => {
     
   return (
     <Lists>
-          {filteredContacts.map(item => (
-              <li key={item.id}>
-                  {item.name}: {item.number}
-                  <button onClick={() => removeContact(item.id)}>Delete</button>
+          {filteredContacts.map(({ id, name, number }) => (
+              <li key={id}>
+                  {name}: {number}
+                  <button onClick={() => removeContact(id)}>Delete</button>
               </li>
           ))}
     </Lists>

@@ -14,9 +14,9 @@ export const getContactsThunk = createAsyncThunk(
 
 export const addContactsThunk = createAsyncThunk(
 	'contacts/addContacts',
-	async (_, { rejectWithValue }) => {
+	async (contact, { rejectWithValue }) => {
 		try {
-			return await addContacts()
+			return await addContacts(contact)
 		} catch (error) {
 			return rejectWithValue(error)
 		}
@@ -25,9 +25,9 @@ export const addContactsThunk = createAsyncThunk(
 
 export const dellContactsThunk = createAsyncThunk(
 	'contacts/dellContacts',
-	async (_, { rejectWithValue }) => {
+	async (id, { rejectWithValue }) => {
 		try {
-			return await dellContacts()
+			return await dellContacts(id)
 		} catch (error) {
 			return rejectWithValue(error)
 		}
