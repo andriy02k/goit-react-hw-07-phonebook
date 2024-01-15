@@ -1,30 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { nanoid } from "nanoid";
+import { getContactsThunk, addContactsThunk, dellContactsThunk } from '../store/thunks'
+
+const handlePaending = state => {
+  state.isLoading = true;
+};
+
+const handleReject = (state, { payload }) => {
+  state.error = payload;
+};
 
 const initialState = {
-    contacts: [],
+    items: [],
+    isLoading: false,
+    error: null,
 }
 
 const contactSlice = createSlice({
     name: 'contacts',
     initialState,
-        reducers: {
-            addContactAction: {
-                prepare: (data) => {
-                    const newContact = {
-                        id: nanoid(),
-                        ...data,
-                    }
-                    return { payload: newContact }
-                },
-                reducer: (state, { payload }) => {
-                    state.contacts.push(payload);
-                },
-            },
-            removeContactAction: (state, { payload }) => {
-                state.contacts = state.contacts.filter(item => item.id !== payload);
-            },
-        },
+        extraReducers: (builder) => {
+            builder
+                .addCase(getContactsThunk.pending, handlePaending)
+                .addCase(getContactsThunk.rejected, handleReject)
+                .addCase(getContactsThunk.fulfilled, (state, { payload }) => {
+                    state.items = payload
+                })
+                .addCase(addContactsThunk.pending, handlePaending)
+                .addCase(addContactsThunk.rejected, handleReject)
+                .addCase(addContactsThunk.fulfilled, (state, { payload }) => {
+                    state.items = [payload, ...state.items]
+                })
+                .addCase(dellContactsThunk.pending, handlePaending)
+                .addCase(dellContactsThunk.rejected, handleReject)
+                .addCase(dellContactsThunk.fulfilled, (state, { payload }) => {
+                    state.items = state.items.filter(item => item.id !== payload.id)
+                })
+	    },
 });
 
 export const contactsReducer = contactSlice.reducer;

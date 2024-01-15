@@ -1,15 +1,16 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { removeContactAction } from '../../store/sliceContacts';
+import { dellContactsThunk } from '../../store/thunks';
+import { contactsSelector, filterSelector } from '../../store/selectors';
 import { Lists } from './List.styled'
 
 const List = () => {
-  const { contacts } = useSelector((state) => state.contacts);
-  const { filter } = useSelector((state) => state.filter);
+  const contacts = useSelector(contactsSelector);
+  const filter = useSelector(filterSelector);
   const dispatch = useDispatch();
 
   const removeContact = id => {
-      dispatch(removeContactAction(id));
+      dispatch(dellContactsThunk(id));
   }
 
   const filterContact = () => {
@@ -19,6 +20,7 @@ const List = () => {
   };
 
   const filteredContacts = filterContact();
+  console.log(filteredContacts);
     
   return (
     <Lists>
