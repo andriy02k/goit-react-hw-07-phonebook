@@ -14,13 +14,12 @@ const List = () => {
   }
 
   const filterContact = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
+      return contacts.filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+      );
   };
 
   const filteredContacts = filterContact();
-  console.log(filteredContacts);
     
   return (
     <Lists>
